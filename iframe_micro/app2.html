@@ -1,0 +1,62 @@
+<!-- app2.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App 2</title>
+    <style>
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>App 2 内容</h2>
+    <p>来自App1的共享变量： <span id="sharedVariableApp1Val"></span></p>
+    <p>来自主页面的共享变量： <span id="sharedVariableMainVal"></span></p>
+
+    <!-- 尝试在App2中使用模态覆盖整个浏览器 -->
+    <div id="modal">
+        这是App2中试图覆盖整个浏览器的模式
+    </div>
+
+    <button onclick="toggleModal()">切换模态</button>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'block' : 'none';
+        }
+
+        // 显示App1中的共享变量
+        // 子应用之间全局上下文完全隔离
+        document.getElementById('sharedVariableApp1Val').innerText = window.sharedVariableApp1 || "不可用";
+
+        // 需要借助父来获取App1中的共享变量
+        // document.getElementById('sharedVariableApp1').innerText = window.parent.sharedVariableApp1 || "不可用";
+
+
+        // 获取主页面共享数据
+        // 父子应用之间全局上下文完全隔离
+        document.getElementById('sharedVariableMainVal').innerText = window.sharedVariableMainApp || "不可用";
+
+        // 需要通过window.parent获取
+        // document.getElementById('sharedVariableMainVal').innerText = window.parent.sharedVariableMainApp || "不可用";
+
+    </script>
+</body>
+
+</html>
