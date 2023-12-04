@@ -1,0 +1,64 @@
+<!-- app1.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App 1</title>
+    <style>
+        #modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>App 1 内容</h2>
+    <p>当前页面: <span id="currentPage"></span></p>
+    <p>来自主页面的共享变量： <span id="sharedVariableMainVal"></span></p>
+
+    <!-- 模拟App1中的共享变量 -->
+    <script>
+        // 需要通过父来进行数据共享
+        // window.parent.sharedVariableApp1 = "应用程序1的共享内容";
+
+        // 子应用之间全局上下文完全隔离
+        window.sharedVariableApp1 = "应用程序1的共享内容";
+    </script>
+
+    <!-- 在App1中使用遮盖模拟模态 -->
+    <div id="modal">
+        这是App1中的一个模态
+    </div>
+
+    <button onclick="toggleModal()">切换模态</button>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'block' : 'none';
+        }
+
+        // 根据URL显示当前页面
+        document.getElementById('currentPage').innerText = window.location.hash;
+
+        // 获取主页面共享数据
+        // 父子应用之间全局上下文完全隔离
+        document.getElementById('sharedVariableMainVal').innerText = window.sharedVariableMainApp || "不可用";
+
+        // 需要通过window.parent获取
+        // document.getElementById('sharedVariableMainVal').innerText = window.parent.sharedVariableMainApp || "不可用";
+    </script>
+</body>
+
+</html>
