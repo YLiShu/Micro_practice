@@ -70,6 +70,7 @@
 - `UI`不同步：例如，如果`iframe`中的页面包含带遮罩层的组件弹窗，遮罩无法全局覆盖整个浏览器，仅在`iframe`内生效。
 - 性能较慢：每次子应用进入都需要进行浏览器上下文的重建和资源重新加载，影响加载速度。
   
+
 **举个🌰**
 
 ```html
@@ -322,6 +323,8 @@
 **举个🌰**
 
 假设我们有一个微前端架构的项目，其中包含一个基座（主应用）和三个子应用（`React`、`Vue2`、`Vue3`）。
+
+项目地址：https://github.com/YLiShu/Micro_practice
 
 ```shell
 |-- qiankun-base // 基座
@@ -755,6 +758,7 @@ module.exports = defineConfig({
 	- 使用`history.pushState()`
 	- 将主应用的路由实例通过`props`传给微应用，微应用通过这个路由实例跳转。
 	        
+
 具体方案：在基座中复写并监听`history.pushState()`方法并做相应的跳转逻辑
 
 ```ts
